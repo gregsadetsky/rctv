@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RCTV</title>
+    <meta http-equiv="refresh" content="{{ meta_refresh_seconds }}; url=/app/{{ next_app_index }}">
+    <style>
+    html,
+    body,
+    iframe {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    </style>
+    <script>
+    const TIME_LIMIT = 15 * 1000; /* 15 seconds */
+    const GET_RC_PAYLOAD = 'getRCPayload'
+    const SDK_LOADED_START = 'sdkLoadedStart'
+    const SDK_LOADED_END = 'sdkLoadedEnd'
+
+    let timeoutID = null;
+
+    window.rcPayload = { { rc_payload | tojson | safe } };
+
+    window.onmessage = (event) => {
+        const data = event.data;
+        const iframe = event.source.window;
+        switch (data.type) {
+            case GET_RC_PAYLOAD:
+                {
+                    iframe.postMessage({
+                        type: 'RCPayload',
+                        payload: window.rcPayload
+                    }, '*');
+                    break;
+                }
+            case SDK_LOADED_START:
+                {
+                    timeoutID = setTimeout(() => {
+                        alert("HAHA SLOW COMPUTER MONKEY")
+                        // TODO: Go to the next iframe
+                    }, TIME_LIMIT)
+                    break;
+                }
+            case SDK_LOADED_END:
+                {
+                    if (timeoutID) { clearTimeout(timeoutID) }
+                    break;
+                }
+        }
+    }
+    </script>
+</head>
+
+<body><iframe width="100%" height="100%" src="{{ app.url }}" border="0" style="border:0" /></body>
+
+</html>

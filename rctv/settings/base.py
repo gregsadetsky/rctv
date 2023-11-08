@@ -144,5 +144,7 @@ AUTH_USER_MODEL = "core.User"
 RC_ACCESS_TOKEN = os.environ["RC_ACCESS_TOKEN"]
 RC_CALENDAR_URL = os.environ["RC_CALENDAR_URL"]
 
-ZULIP_RC_PATH = BASE_DIR / ".zuliprc"
+ZULIP_RC_PATH = BASE_DIR / ".." / ".zuliprc"
 assert ZULIP_RC_PATH.exists(), "Zulip RC file not found"
+
+APP_META_REFRESH_SECONDS = 60
