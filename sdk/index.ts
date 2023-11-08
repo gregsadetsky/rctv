@@ -1,17 +1,18 @@
 /// <reference lib="dom" />
 /// <reference lib="dom.iterable" />
 
-const SDK_LOADED_START = "sdkLoadedStart";
-const SDK_LOADED_END = "sdkLoadedEnd";
+declare global {
+  interface Window {
+    RC: any;
+  }
+}
 
-type API = {
-  getSignedInUsers: () => void;
-};
+const SDK_LOADED_END = "sdkLoadedEnd";
 
 // Fetches signed in users from the RC API using the given RC Personal Access
 // Token
 const getSignedInUsers = async () => {
-  const res = await fetch("http://localhost:8000/api/getHubVisits", {
+  const res = await fetch(`${process.env.API_SERVER_URL}/api/hubVisits`, {
     credentials: "include",
   });
   const data = await res.json();
@@ -19,8 +20,8 @@ const getSignedInUsers = async () => {
 };
 
 // Calls the developer provided function when ready
-const onLoad = (theirs: (api: API) => void) => {
-  // Tell parent (rctv) that onLoad was called so it can stop its 30 second timer
+const onLoad = (clientOnLoadCallback: () => void) => {
+  // Tell parent rctv iframe that onLoad was called so it can stop its 30 second kill timer
   window.parent.postMessage(
     {
       type: SDK_LOADED_END,
@@ -28,18 +29,13 @@ const onLoad = (theirs: (api: API) => void) => {
     "*"
   );
 
-  const API: API = {
-    getSignedInUsers,
-  };
-
-  // Call the developer's function
-  theirs(API);
+  // good to go, let's go
+  clientOnLoadCallback();
 };
-
-document.addEventListener("DOMContentLoaded", () => {});
 
 var RC = {
   onLoad,
+  getSignedInUsers,
 };
 
 // Global expor
