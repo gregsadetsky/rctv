@@ -2,11 +2,15 @@ import base64
 from functools import wraps
 
 from django.contrib.auth import authenticate
-from django.http import HttpResponse
+from django.http import HttpResponse, cookie
 
 
 # https://gist.github.com/codeinthehole/4732233
 def view_or_basicauth(view, request, *args, **kwargs):
+    print("view", view)
+    print("request", request)
+    print("request.META", request.META)
+
     # Check for valid basic auth header
     if "HTTP_AUTHORIZATION" in request.META:
         auth = request.META["HTTP_AUTHORIZATION"].split()

@@ -70,7 +70,7 @@
                     }
                 });
             });
-        
+
         });
     </script>
 </head>
@@ -78,12 +78,12 @@
 <body>
     <div id='maincontent'>
         <h1>RCTV DEVELOPERS</h1>
-        <h2>All RCTV Apps (add yours!)</h2>
+        <h2>All RCTV Apps</h2>
         <ul class='no-bullets'>
             {% for app in all_apps %}
             <li>
-                {% if app.enabled %}🟢{% else %}🔴{% endif %}
-                <b>{{ app.url }}</b><br />
+                <span style="user-select: none;">{% if app.enabled %}🟢{% else %}🔴{% endif %}
+                &nbsp;</span><b>{{ app.url }}</b><br />
                 <small>
                     <form method='post' action='/developers/edit_app'>
                         {% csrf_token %}
@@ -106,12 +106,16 @@
             </li>
             {% endfor %}
         </ul>
-        <h3>Add your own!!</h3>
+        <h3>Add a new app!!</h3>
         <p>TODO</p>
-        <h2>How to develop??</h2>
+        <h2>How to develop an app??</h2>
         <p>TODO</p>
-        <h2>more info please / contact</h2>
-        <p>TODO g+j</p>
+        <h2>More info please / contact</h2>
+        <p>
+            This is the RCTV developers dashboard.<br/>
+            The RCTV back/front-end code is <a href="https://github.com/gregsadetsky/rctv">here</a>.<br/>
+            Contact <a href="https://github.com/jryio">Jacob Young</a> and <a href="https://github.com/gregsadetsky">Greg Sadetsky</a> for questions.
+        </p>
     </div>
 </body>
 

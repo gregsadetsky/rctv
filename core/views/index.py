@@ -10,7 +10,7 @@ def index(request):
     return render(request, "core/index.html")
 
 
-@basicauth
+# @basicauth
 def app(request, app_index):
     all_apps = App.objects.filter(enabled=True)
 

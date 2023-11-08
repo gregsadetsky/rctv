@@ -12,7 +12,7 @@ urlpatterns = [
     path("", index, name="index"),
     # only un-authed api view, since it returns to the sdk/client-side
     # wheter user is auth'ed.
-    path("app/<int:app_index>", user_authentication_required(app), name="app"),
+    path("app/<int:app_index>", app, name="app"),
     path("developers", developers, name="developers"),
     path("developers/edit_app", edit_app, name="edit_app"),
     path("oauth_redirect", oauth_redirect, name="oauth_redirect"),
