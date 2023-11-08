@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 import dj_database_url
+from django.utils.log import DEFAULT_LOGGING
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -118,6 +119,11 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+
+# start from default values -- so that they can be overriden later
+# https://stackoverflow.com/a/25508761
+LOGGING = DEFAULT_LOGGING
 
 
 # Static files (CSS, JavaScript, Images)
