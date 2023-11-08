@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from ..models import App
-from ..utils.basic_auth import basicauth
+from ..utils.basicauth import basicauth
 
 
 def index(request):
