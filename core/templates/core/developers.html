@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DEVELOPERS</title>
+    <style>
+        html, body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    body {
+        line-height: 1.4;
+        font-size: 16px;
+        margin: 0px auto;
+        max-width: 650px;
+        background-image: url("{% static 'core/developers.jpg' %}");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        background-size: cover;
+    }
+
+
+    #maincontent {
+        max-width: 42em;
+        margin: 15px auto;
+    }
+
+    h1 {
+        margin-top: 0;
+        padding-top: 0;
+        font-size: 60px;
+        color: black;
+        -webkit-text-fill-color: white;
+        -webkit-text-stroke: 3px black;
+    }
+
+    ul.no-bullets {
+        list-style-type: none;
+    }
+
+    ul li {
+        margin-bottom: 10px;
+    }
+
+    /* https://stackoverflow.com/a/1368286 */
+    button {
+      background: none!important;
+      border: none;
+      padding: 0!important;
+      font-family: serif;
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // when delete btuton is pressed,
+            // confirm with user and if they agree, submit form
+            document.querySelectorAll("button[value='delete']").forEach(function(button) {
+                button.addEventListener("click", function(event) {
+                    if (!confirm("Are you sure you want to delete this app?")) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        
+        });
+    </script>
+</head>
+
+<body>
+    <div id='maincontent'>
+        <h1>RCTV DEVELOPERS</h1>
+        <h2>All RCTV Apps (add yours!)</h2>
+        <ul class='no-bullets'>
+            {% for app in all_apps %}
+            <li>
+                {% if app.enabled %}🟢{% else %}🔴{% endif %}
+                <b>{{ app.url }}</b><br />
+                <small>
+                    <form method='post' action='/developers/edit_app'>
+                        {% csrf_token %}
+                        <input type='hidden' name='app_id' value='{{ app.id }}' />
+                        {% if app.enabled %}
+                        Enabled - <button type="submit" name="action" value="disable">Disable?</button>
+                        {% else %}
+                        Disabled - <button type="submit" name="action" value="enable">Enable?</button>
+                        {% endif %}
+                        •
+                        {% if app.uses_api %}
+                        Uses API
+                        {% else %}
+                        Doesn't use API
+                        {% endif %}
+                        •
+                        <button type="submit" name="action" value="delete">Delete?</button>
+                    </form>
+                </small>
+            </li>
+            {% endfor %}
+        </ul>
+        <h3>Add your own!!</h3>
+        <p>TODO</p>
+        <h2>How to develop??</h2>
+        <p>TODO</p>
+        <h2>more info please / contact</h2>
+        <p>TODO g+j</p>
+    </div>
+</body>
+
+</html>

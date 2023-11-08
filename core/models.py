@@ -17,6 +17,10 @@ class App(models.Model):
     # https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
     url = models.URLField(max_length=1000)
     enabled = models.BooleanField(default=True)
+    uses_api = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["created_at"]
 
     def __str__(self):
         return f"{self.url}"

@@ -7,14 +7,42 @@ declare global {
   }
 }
 
+let SDK_IS_AUTHENTICATED = false;
 const SDK_LOADED_END = "sdkLoadedEnd";
+
+const isSDKAuthenticated = async () => {
+  if (SDK_IS_AUTHENTICATED) {
+    return true;
+  }
+
+  const res = await fetch(`${process.env.API_SERVER_URL}/api/userIsAuthed`, {
+    credentials: "include",
+  });
+  const { user_is_authed } = await res.json();
+  if (!user_is_authed) {
+    // TODO
+    // TODO
+    alert("... start auth...");
+    // TODO
+  } else {
+    SDK_IS_AUTHENTICATED = true;
+    return true;
+  }
+};
 
 // Fetches signed in users from the RC API using the given RC Personal Access
 // Token
-const getSignedInUsers = async () => {
-  const res = await fetch(`${process.env.API_SERVER_URL}/api/hubVisits`, {
-    credentials: "include",
-  });
+const getHubVisitsForToday = async () => {
+  if (!(await isSDKAuthenticated())) {
+    return;
+  }
+
+  const res = await fetch(
+    `${process.env.API_SERVER_URL}/api/hubVisitsForToday`,
+    {
+      credentials: "include",
+    }
+  );
   const data = await res.json();
   return data;
 };
@@ -33,10 +61,7 @@ const onLoad = (clientOnLoadCallback: () => void) => {
   clientOnLoadCallback();
 };
 
-var RC = {
+window.RC = {
   onLoad,
-  getSignedInUsers,
+  getHubVisitsForToday,
 };
-
-// Global expor
-window.RC = RC;
