@@ -8,10 +8,8 @@ from django.http import HttpResponse
 # https://gist.github.com/codeinthehole/4732233
 def view_or_basicauth(view, request, *args, **kwargs):
     # Check for valid basic auth header
-    print("request.META", request.META)
     if "HTTP_AUTHORIZATION" in request.META:
         auth = request.META["HTTP_AUTHORIZATION"].split()
-        print("auth", auth)
         if len(auth) == 2:
             if auth[0].lower() == "basic":
                 uname, passwd = base64.b64decode(auth[1]).split(b":")

@@ -12,7 +12,7 @@ def index(request):
 
 @basicauth
 def app(request, app_index):
-    all_apps = App.objects.all()
+    all_apps = App.objects.filter(enabled=True)
 
     if len(all_apps) == 0:
         return HttpResponse(b"please come back another time")

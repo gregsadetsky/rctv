@@ -7,7 +7,7 @@ admin.site.register(User, UserAdmin)
 
 
 class AppAdmin(admin.ModelAdmin):
-    list_display = ("url", "created_at")
+    list_display = ("url", "created_at", "enabled")
 
 
 admin.site.register(App, AppAdmin)
