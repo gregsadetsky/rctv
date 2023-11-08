@@ -34,6 +34,9 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 DEBUG = False
 
 ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
+# CSRF_TRUSTED_ORIGINS must include scheme and host!
+# https://stackoverflow.com/a/38842030
+CSRF_TRUSTED_ORIGINS = os.environ["CSRF_TRUSTED_ORIGINS"].split(",")
 
 
 # Application definition
