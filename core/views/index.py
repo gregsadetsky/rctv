@@ -1,15 +1,21 @@
 from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from ..models import App
+from ..utils.basic_auth import basicauth
 
 
 def index(request):
     return render(request, "core/index.html")
 
 
+@basicauth
 def app(request, app_index):
     all_apps = App.objects.all()
+
+    if len(all_apps) == 0:
+        return HttpResponse(b"please come back another time")
 
     # sanity
     if app_index >= len(all_apps):
