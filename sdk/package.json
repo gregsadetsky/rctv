@@ -1,0 +1,15 @@
+{
+  "name": "rctv-sdk",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "watch": "bun build index.ts --outfile ../rctv/static_root/app-sdk.js --watch",
+    "bundle": "bun build index.ts --outfile ../rctv/static_root/app-sdk.js --target=browser --minify"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
