@@ -140,3 +140,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # https://docs.djangoproject.com/en/4.2/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 AUTH_USER_MODEL = "core.User"
+
+RC_ACCESS_TOKEN = os.environ["RC_ACCESS_TOKEN"]
+RC_CALENDAR_URL = os.environ["RC_CALENDAR_URL"]
+
+ZULIP_RC_PATH = BASE_DIR / ".zuliprc"
+assert ZULIP_RC_PATH.exists(), "Zulip RC file not found"
