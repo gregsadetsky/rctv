@@ -111,7 +111,7 @@
             <form method='post' action='/developers/add_app'>
                 {% csrf_token %}
                 <input type='url' required name='url' placeholder='https://...' style="width:300px" />
-                <input type="checkbox" name="uses_api" value="uses_api">Uses API?<sup>*</sup><br>
+                <input type="checkbox" name="uses_api" value="on">Uses API?<sup>*</sup><br>
                 <button type='submit'>Add This New App!!</button><br/><br/>
                 *do you load the SDK and do stuff with RC data? if yes, click the "Uses API?" checkbox.<br/>
                 otherwise, if you're loading some external site that has no idea about RC/RC data (like a GIF url? example.com? hacker news?), leave the checkbox unchecked.<br/>

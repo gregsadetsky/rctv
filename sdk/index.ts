@@ -31,8 +31,6 @@ const isSDKAuthenticated = async () => {
   }
 };
 
-// Fetches signed in users from the RC API using the given RC Personal Access
-// Token
 const getHubVisitsForToday = async () => {
   if (!(await isSDKAuthenticated())) {
     return;
@@ -62,6 +60,9 @@ const onLoad = (clientOnLoadCallback: () => void) => {
   clientOnLoadCallback();
 };
 
+// TODO make the below more generic since most? all? api calls will
+// all be of the form 1. check if authed 2. proxy some api
+// TODO catch/bubble up errors...??
 window.RC = {
   onLoad,
   getHubVisitsForToday,
