@@ -16,62 +16,95 @@
         height: 100%;
         overflow: hidden;
     }
-    </style>
-    <script>
-    const TIME_LIMIT = 15 * 1000; /* 15 seconds */
-    const GET_RC_PAYLOAD = 'getRCPayload'
-    const SDK_LOADED_START = 'sdkLoadedStart'
-    const SDK_LOADED_END = 'sdkLoadedEnd'
 
-    let timeoutID = null;
-
-    window.onmessage = (event) => {
-        const data = event.data;
-        const iframe = event.source.window;
-        switch (data.type) {
-            case GET_RC_PAYLOAD:
-                {
-                    iframe.postMessage({
-                        type: 'RCPayload',
-                        payload: window.rcPayload
-                    }, '*');
-                    break;
-                }
-            case SDK_LOADED_START:
-                {
-                    timeoutID = setTimeout(() => {
-                        alert("HAHA SLOW COMPUTER MONKEY")
-                        // TODO: Go to the next iframe
-                    }, TIME_LIMIT)
-                    break;
-                }
-            case SDK_LOADED_END:
-                {
-                    if (timeoutID) { clearTimeout(timeoutID) }
-                    break;
-                }
+    @keyframes zoominoutsinglefeatured {
+        0% {
+            transform: scale(1,1);
+        }
+        50% {
+            transform: scale(1.2,1.2);
+        }
+        100% {
+            transform: scale(1,1);
         }
     }
+
+    .cardcontainer img {
+        animation:  ;
+    }
+    </style>
+    <script>
+        let zindex = 100000;
+        document.addEventListener("DOMContentLoaded", function() {
+            setInterval(async () => {
+                const res = await fetch('/internal-api/get_next_zulip_image_to_show');
+                const data = await res.json();
+                console.log('data', data);
+                if(data.img_url) {
+                    // create a new image that will be placed on top of everything
+                    // with a super high z-index and will zoom in and pause and then fade out
+                    // and then remove itself
+                    const img = document.createElement('img');
+                    img.src = data.img_url;
+                    img.style.position = 'absolute';
+                    img.style.top = '0';
+                    img.style.left = '0';
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    img.style.zIndex = (zindex++).toString();
+                    img.style.animation = 'zoominoutsinglefeatured 1s infinite';
+                    document.body.appendChild(img);
+                    setTimeout(() => {
+                        img.remove();
+                    }, 5000)
+                }
+            }, 1000)
+        });
+
+    // TODO redo the timeout thing based on whether app uses api or not!!
+    // TODO redo the timeout thing based on whether app uses api or not!!
+    // TODO redo the timeout thing based on whether app uses api or not!!
+
+    // const TIME_LIMIT = 15 * 1000; /* 15 seconds */
+    // const GET_RC_PAYLOAD = 'getRCPayload'
+    // const SDK_LOADED_START = 'sdkLoadedStart'
+    // const SDK_LOADED_END = 'sdkLoadedEnd'
+
+    // let timeoutID = null;
+
+    // window.onmessage = (event) => {
+    //     const data = event.data;
+    //     const iframe = event.source.window;
+    //     switch (data.type) {
+    //         case GET_RC_PAYLOAD:
+    //             {
+    //                 iframe.postMessage({
+    //                     type: 'RCPayload',
+    //                     payload: window.rcPayload
+    //                 }, '*');
+    //                 break;
+    //             }
+    //         case SDK_LOADED_START:
+    //             {
+    //                 timeoutID = setTimeout(() => {
+    //                     alert("HAHA SLOW COMPUTER MONKEY")
+    //                     // TODO: Go to the next iframe
+    //                 }, TIME_LIMIT)
+    //                 break;
+    //             }
+    //         case SDK_LOADED_END:
+    //             {
+    //                 if (timeoutID) { clearTimeout(timeoutID) }
+    //                 break;
+    //             }
+    //     }
+    // }
     </script>
 </head>
 
 <body>
 
     <iframe sandbox="allow-same-origin allow-scripts allow-top-navigation " referrerpolicy="strict-origin-when-cross-origin" width="100%" height="100%" src="{{ app.url }}" border="0" style="border:0" /></body>
-
-    <!--
-        <iframe sandbox="allow-same-origin allow-scripts allow-top-navigation " referrerpolicy="strict-origin-when-cross-origin" src="https://recurse.rctogether.com/?a=b" style="width:800px;height:800px;"></iframe>
-
-        is this the one below that works???????? or does it not matter?????????????
-        
-        <iframe
-        referrerpolicy="strict-origin-when-cross-origin"
-        sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-        allow="encrypted-media; fullscreen; oversized-images; picture-in-picture; sync-xhr; geolocation;"
-        allowpaymentrequest="true"
-        allowpopups
-        allowfullscreen
-        src="https://recurse.rctogether.com/?c=d" style="width:800px;height:800px;"></iframe>
-    -->
 
 </html>

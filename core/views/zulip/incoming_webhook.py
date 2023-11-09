@@ -20,7 +20,9 @@ def incoming_webhook(request):
     assert len(message_data["token"]) and len(settings.ZULIP_INCOMING_WEBHOOK_TOKEN)
     assert message_data["token"] == settings.ZULIP_INCOMING_WEBHOOK_TOKEN
 
-    res = re.search(rf"^@\*\*{BOT_NAME}\*\* /img (.+)$", message_data["data"])
+    print(message_data["data"])
+
+    res = re.search(rf"^(@\*\*{BOT_NAME}\*\* |)/img (.+)$", message_data["data"])
     if not res:
         return JsonResponse(
             {
@@ -29,7 +31,7 @@ def incoming_webhook(request):
 """.strip()
             }
         )
-    img_url = res.group(1)
+    img_url = res.group(2)
 
     validator = URLValidator()
     try:

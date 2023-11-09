@@ -4,7 +4,7 @@ from core.views.api.events import events
 from core.views.api.hub_visits import hub_visits_for_today
 from core.views.api.user_is_authed import user_is_authed
 from core.views.developers.index import add_app, developers, edit_app
-from core.views.index import app, index
+from core.views.index import app, get_next_zulip_image_to_show, index
 from core.views.oauth.oauth_redirect import oauth_redirect
 from core.views.zulip.incoming_webhook import incoming_webhook
 
@@ -21,4 +21,9 @@ urlpatterns = [
     path("api/hubVisitsForToday", hub_visits_for_today, name="hub_visits_for_today"),
     path("api/events", events, name="events"),
     path("zulip/incoming_webhook", incoming_webhook, name="incoming_webhook"),
+    path(
+        "internal-api/get_next_zulip_image_to_show",
+        get_next_zulip_image_to_show,
+        name="get_next_zulip_image_to_show",
+    ),
 ]
