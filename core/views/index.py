@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from ..models import App, ZulipImgRequest
 from ..utils.views_auth import user_authentication_required
-from ..utils.views_basicauth import basicauth
+from ..utils.views_tv_token import view_or_expect_tv_token
 
 
 # completely public view
@@ -13,7 +13,7 @@ def index(request):
 
 
 # tv view, require basic auth (which maps to django users)
-@basicauth
+@view_or_expect_tv_token
 def app(request, app_index):
     all_apps = App.objects.filter(enabled=True)
 

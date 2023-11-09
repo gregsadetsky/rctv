@@ -37,9 +37,7 @@
         let zindex = 100000;
         document.addEventListener("DOMContentLoaded", function() {
             setInterval(async () => {
-                const res = await fetch('/internal-api/get_next_zulip_image_to_show', {
-                    credentials: 'include'
-                });
+                const res = await fetch('/internal-api/get_next_zulip_image_to_show');
                 const data = await res.json();
                 console.log('data', data);
                 if(data.img_url) {
