@@ -103,7 +103,14 @@
             {% for app in all_apps %}
             <li>
                 <span style="user-select: none;">{% if app.enabled %}🟢{% else %}🔴{% endif %}
-                &nbsp;</span><b>{{ app.url }}</b><br />
+                &nbsp;</span>
+                    <b>
+                        {% if app.uses_api %}
+                            {{ app.url }}
+                        {% else %}
+                            <a href={{ app.url }}>{{ app.url }}</a>
+                        {% endif %}
+                    </b><br />
                 <small>
                     <form method='post' action='/developers/edit_app'>
                         {% csrf_token %}
