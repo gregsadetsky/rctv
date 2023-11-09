@@ -48,7 +48,7 @@
     }
 
     /* https://stackoverflow.com/a/1368286 */
-    button {
+    button.kindOfLikeALink {
       background: none!important;
       border: none;
       padding: 0!important;
@@ -89,9 +89,9 @@
                         {% csrf_token %}
                         <input type='hidden' name='app_id' value='{{ app.id }}' />
                         {% if app.enabled %}
-                        Enabled - <button type="submit" name="action" value="disable">Disable?</button>
+                        Enabled - <button class="kindOfLikeALink" type="submit" name="action" value="disable">Disable?</button>
                         {% else %}
-                        Disabled - <button type="submit" name="action" value="enable">Enable?</button>
+                        Disabled - <button class="kindOfLikeALink" type="submit" name="action" value="enable">Enable?</button>
                         {% endif %}
                         •
                         {% if app.uses_api %}
@@ -100,21 +100,45 @@
                         Doesn't use API
                         {% endif %}
                         •
-                        <button type="submit" name="action" value="delete">Delete?</button>
+                        <button class="kindOfLikeALink" type="submit" name="action" value="delete">Delete?</button>
                     </form>
                 </small>
             </li>
             {% endfor %}
         </ul>
-        <h3>Add a new app!!</h3>
-        <p>TODO</p>
-        <h2>How to develop an app??</h2>
-        <p>TODO</p>
-        <h2>More info please / contact</h2>
+        <h2>Add a new app!!</h2>
         <p>
-            This is the RCTV developers dashboard.<br/>
-            The RCTV back/front-end code is <a href="https://github.com/gregsadetsky/rctv">here</a>.<br/>
-            Contact <a href="https://github.com/jryio">Jacob Young</a> and <a href="https://github.com/gregsadetsky">Greg Sadetsky</a> for questions.
+            <form method='post' action='/developers/add_app'>
+                {% csrf_token %}
+                <input type='url' required name='url' placeholder='https://...' style="width:300px" />
+                <input type="checkbox" name="uses_api" value="uses_api">Uses API?<sup>*</sup><br>
+                <button type='submit'>Add This New App!!</button><br/><br/>
+                *do you load the SDK and do stuff with RC data? if yes, click the "Uses API?" checkbox.<br/>
+                otherwise, if you're loading some external site that has no idea about RC/RC data (like a GIF url? example.com? hacker news?), leave the checkbox unchecked.<br/>
+            </form>
+        </p>
+        <h2>How to develop an app??</h2>
+        <p>
+            - make a web page or site. you can make a simple single-html-file app, you can include some javascript,
+            or you can make a whole site with a backend. dealer's choice.<br/>
+            - include:<br/>
+            <pre style='background:#eee;width:100%;text-align:center;display:block;padding-top:7px;padding-bottom:7px;'>&#x3C;script src=&#x22;https://rctv.recurse.com/app-sdk.js&#x22;&#x3E;&#x3C;/script&#x3E;</pre>
+            on your page.<br/>
+            - make javascript calls! here's how:<br/>
+            <pre style='background:#eee;display:block;padding-top:7px;padding-bottom:7px;'>
+window.RC.onLoad(() => {
+    // RC API is ready!!
+    window.RC.getHubVisitsForToday().then((data) => {
+      console.log('getHubVisitsForToday', data);
+    });
+});</pre>
+            - explore the API! <code style='background:#eee'>console.log(window.RC)</code> :-)<br/>
+            - host your site/page somewhere as your app will need a public url. github pages should work for most pages/apps<br/>
+            - ship early! ship often! you can add your app to RCTV above (see "Add a new app!!"). do it. we dare you. we love you.
+        </p>
+        <h2>More info please / contact</h2>
+        <p style='padding-bottom:20px'>
+            The RCTV back/front-end code is <a href="https://github.com/gregsadetsky/rctv">here</a>. Contact <a href="https://github.com/jryio">Jacob Young</a> and <a href="https://github.com/gregsadetsky">Greg Sadetsky</a> for questions.
         </p>
     </div>
 </body>

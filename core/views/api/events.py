@@ -6,10 +6,12 @@ from django.core.exceptions import BadRequest
 from django.http import JsonResponse
 
 from ...utils.calendar_api import get_events
+from ...utils.views_auth import user_authentication_required
 
 API_TIME_FORMAT = "%Y%m%d"
 
 
+@user_authentication_required
 def events(request):
     # optional start query param
     start = request.GET.get("start", None)

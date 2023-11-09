@@ -2,8 +2,10 @@ from django.conf import settings
 from django.http import JsonResponse
 
 from ...utils.recurse_api import get_hub_visits_for_today
+from ...utils.views_auth import user_authentication_required
 
 
+@user_authentication_required
 def hub_visits_for_today(request):
     """
     Returns a JSON response containing the number of visits to the hub.

@@ -3,14 +3,16 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from ..models import App
-from ..utils.basicauth import basicauth
+from ..utils.views_basicauth import basicauth
 
 
+# completely public view
 def index(request):
     return render(request, "core/index.html")
 
 
-# @basicauth
+# tv view, require basic auth (which maps to django users)
+@basicauth
 def app(request, app_index):
     all_apps = App.objects.filter(enabled=True)
 
