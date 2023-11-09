@@ -58,6 +58,26 @@
       cursor: pointer;
     }
 
+    .wacky {
+        margin-top: 0px;
+        margin-bottom: 50px;
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 3rem;
+        letter-spacing: 0.15rem;
+        text-transform: uppercase;
+        color: #fff;
+        text-shadow: -4px 4px #ef3550,
+               -8px 8px #f48fb1,
+               -12px 12px #7e57c2,
+               -16px 16px #2196f3,
+               -20px 20px #26c6da,
+               -24px 24px #43a047,
+               -28px 28px #eeff41,
+               -32px 32px #f9a825,
+               -36px 36px #ff5722;
+    }
+
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -106,7 +126,14 @@
             </li>
             {% endfor %}
         </ul>
-        <h2>Add a new app!!</h2>
+        <h2 class='wacky'>Wacky Zulip things!!</h2>
+        <p>
+            You can get on Zulip and ask the bot to show an image <b>right now</b>. It will comply immediately!!!
+        </p>
+        <p>
+            <b>@rctv /img SOMEURL</b>
+        </p>
+        <h2>Add a new app!! It can be just a webpage! Any page!</h2>
         <p>
             <form method='post' action='/developers/add_app'>
                 {% csrf_token %}

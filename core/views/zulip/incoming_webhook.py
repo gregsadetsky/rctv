@@ -20,14 +20,14 @@ def incoming_webhook(request):
     assert len(message_data["token"]) and len(settings.ZULIP_INCOMING_WEBHOOK_TOKEN)
     assert message_data["token"] == settings.ZULIP_INCOMING_WEBHOOK_TOKEN
 
-    print(message_data["data"])
-
     res = re.search(rf"^(@\*\*{BOT_NAME}\*\* |)/img (.+)$", message_data["data"])
     if not res:
         return JsonResponse(
             {
                 "content": f"""I don't understand that. My commands right now are:
 **@{BOT_NAME} /img SOMEURL**
+... or if you are DM'img me:
+**/img SOMEURL**
 """.strip()
             }
         )

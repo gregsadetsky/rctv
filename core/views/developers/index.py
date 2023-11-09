@@ -60,8 +60,6 @@ def edit_app(request):
 @require_http_methods(["POST"])
 def add_app(request):
     app_url = request.POST.get("url")
-    print("request.POST", request.POST)
-    print('request.POST.get("uses_api")', request.POST.get("uses_api"))
     app_uses_api = request.POST.get("uses_api") == "on"
 
     errors = []

@@ -45,7 +45,6 @@ def oauth_redirect(request):
     # if so, we should have their app url in the session. redirect to it
     # and clear the session value
     redirect_uri = request.session.get("redirect_uri", None)
-    print("redirect_uri", redirect_uri)
     if redirect_uri:
         request.session["redirect_uri"] = None
         return redirect(redirect_uri)
