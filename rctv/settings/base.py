@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # https://pypi.org/project/django-cors-headers/
     "corsheaders",
+    # https://github.com/MrBin99/django-vite
+    "django_vite",
     "core",
 ]
 
@@ -181,3 +183,13 @@ ZULIP_INCOMING_WEBHOOK_TOKEN = os.environ["ZULIP_INCOMING_WEBHOOK_TOKEN"]
 ZULIP_INCOMING_WEBHOOK_BOT_NAME = os.environ["ZULIP_INCOMING_WEBHOOK_BOT_NAME"]
 
 TV_LOGIN_TOKEN = os.environ["TV_LOGIN_TOKEN"]
+
+# https://github.com/MrBin99/django-vite-example/blob/master/django_vite_example/settings.py
+# Where ViteJS assets are built.
+DJANGO_VITE_ASSETS_PATH = BASE_DIR / ".." / "core" / "static" / "js" / "dist"
+
+# Include DJANGO_VITE_ASSETS_PATH into STATICFILES_DIRS to be copied inside
+# when run command python manage.py collectstatic
+STATICFILES_DIRS = [DJANGO_VITE_ASSETS_PATH]
+
+DJANGO_VITE_DEV_SERVER_PORT = 5173

@@ -15,6 +15,7 @@ def index(request):
 # tv view, require basic auth (which maps to django users)
 @view_or_expect_tv_token
 def app(request, app_index):
+    print("settings.DJANGO_VITE_DEV_MODE", settings.DJANGO_VITE_DEV_MODE)
     all_apps = App.objects.filter(enabled=True)
 
     if len(all_apps) == 0:
