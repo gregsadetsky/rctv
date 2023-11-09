@@ -5,12 +5,16 @@ var isSDKAuthenticated = async () => {
   if (SDK_IS_AUTHENTICATED) {
     return true;
   }
-  const res = await fetch("http://localhost:8000/api/userIsAuthed", {
+  const res = await fetch("https://rctv-dev.recurse.com/api/userIsAuthed", {
     credentials: "include"
   });
   const { user_is_authed } = await res.json();
   if (!user_is_authed) {
-    alert("... start auth...");
+    const redirect_uri = encodeURIComponent(window.location.href);
+    setTimeout(() => {
+      window.location.href = `https://rctv-dev.recurse.com/developers?redirect_uri=${redirect_uri}`;
+    }, 50);
+    return false;
   } else {
     SDK_IS_AUTHENTICATED = true;
     return true;
@@ -20,7 +24,7 @@ var getHubVisitsForToday = async () => {
   if (!await isSDKAuthenticated()) {
     return;
   }
-  const res = await fetch("http://localhost:8000/api/hubVisitsForToday", {
+  const res = await fetch("https://rctv-dev.recurse.com/api/hubVisitsForToday", {
     credentials: "include"
   });
   const data = await res.json();

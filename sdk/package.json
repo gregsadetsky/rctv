@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "watch": "bun build index.ts --define process.env.API_SERVER_URL:'http://localhost:8000' --outfile ../rctv/static_root/app-sdk.js --target=browser --watch",
+    "watch": "bun build index.ts --define process.env.API_SERVER_URL:'https://rctv-dev.recurse.com' --outfile ../rctv/static_root/app-sdk.js --target=browser --watch",
     "bundle": "bun build index.ts --define process.env.API_SERVER_URL:'https://rctv.recurse.com' --outfile ../rctv/static_root/app-sdk.js --target=browser --minify"
   },
   "devDependencies": {

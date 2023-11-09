@@ -20,10 +20,11 @@ const isSDKAuthenticated = async () => {
   });
   const { user_is_authed } = await res.json();
   if (!user_is_authed) {
-    // TODO
-    // TODO
-    alert("... start auth...");
-    // TODO
+    const redirect_uri = encodeURIComponent(window.location.href);
+    setTimeout(() => {
+      window.location.href = `${process.env.API_SERVER_URL}/developers?redirect_uri=${redirect_uri}`;
+    }, 50);
+    return false;
   } else {
     SDK_IS_AUTHENTICATED = true;
     return true;

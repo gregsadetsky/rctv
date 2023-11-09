@@ -11,8 +11,20 @@ from ..oauth.utils import get_rc_oauth
 
 # entry point for oauth login
 # i.e. developers should go here to login with recurse oauth
+# ALSO, this is the entry point for developers who just included
+# the app-sdk.js script, and tried to make an RC API call that we provide.
+# the app-sdk.js will ping /apiu/userIsAuthed to see if the user is authed,
+# and if it's not the case, will redirect to /developers?redirect_uri=...
+# with the app url as a param.
+# - store the redirect as part of a session for this (anonymous to us) user
+# - go through the oauth flow, and if/when we emerge on the other side of it
+# in views.oauth_redirects, redirect to the redirect_uri (which is the app url)
 def developers(request):
     if not request.user.is_authenticated:
+        redirect_uri = request.GET.get("redirect_uri", None)
+        if redirect_uri:
+            request.session["redirect_uri"] = redirect_uri
+
         return get_rc_oauth().authorize_redirect(
             request, settings.RC_OAUTH_REDIRECT_URI
         )

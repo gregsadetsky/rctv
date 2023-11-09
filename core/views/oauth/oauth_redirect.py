@@ -41,7 +41,15 @@ def oauth_redirect(request):
 
     login(request, user)
 
-    # TODO POTENTIALLY redirect to sdk app -- or /developers otherwise
-    # TODO POTENTIALLY redirect to sdk app -- or /developers otherwise
-    # TODO POTENTIALLY redirect to sdk app -- or /developers otherwise
+    # was this developer logging in while working with an app/the sdk?
+    # if so, we should have their app url in the session. redirect to it
+    # and clear the session value
+    redirect_uri = request.session.get("redirect_uri", None)
+    print("redirect_uri", redirect_uri)
+    if redirect_uri:
+        request.session["redirect_uri"] = None
+        return redirect(redirect_uri)
+
+    # 'regular' case of accessing /developers and being hit with an oauth login
+    # just go to /developers then!
     return redirect(reverse("developers"))
