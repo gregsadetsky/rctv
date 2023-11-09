@@ -39,7 +39,6 @@
             setInterval(async () => {
                 const res = await fetch('/internal-api/get_next_zulip_image_to_show');
                 const data = await res.json();
-                console.log('data', data);
                 if(data.img_url) {
                     // create a new image that will be placed on top of everything
                     // with a super high z-index and will zoom in and pause and then fade out
