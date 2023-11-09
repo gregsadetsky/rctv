@@ -1,8 +1,8 @@
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
-from ..models import App
+from ..models import App, ZulipImgRequest
 from ..utils.views_basicauth import basicauth
 
 
@@ -35,3 +35,14 @@ def app(request, app_index):
             "meta_refresh_seconds": settings.APP_META_REFRESH_SECONDS,
         },
     )
+
+
+def get_next_zulip_image_to_show(request):
+    oldest_not_processed_image = (
+        ZulipImgRequest.objects.filter(processed=False).order_by("created_at").first()
+    )
+    if oldest_not_processed_image is None:
+        return JsonResponse({"img_url": None})
+    oldest_not_processed_image.processed = True
+    oldest_not_processed_image.save()
+    return JsonResponse({"img_url": oldest_not_processed_image.img_url})

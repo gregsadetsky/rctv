@@ -6,6 +6,7 @@ from core.views.api.user_is_authed import user_is_authed
 from core.views.developers.index import add_app, developers, edit_app
 from core.views.index import app, index
 from core.views.oauth.oauth_redirect import oauth_redirect
+from core.views.zulip.incoming_webhook import incoming_webhook
 
 urlpatterns = [
     path("", index, name="index"),
@@ -19,4 +20,5 @@ urlpatterns = [
     path("api/userIsAuthed", user_is_authed, name="user_is_authed"),
     path("api/hubVisitsForToday", hub_visits_for_today, name="hub_visits_for_today"),
     path("api/events", events, name="events"),
+    path("zulip/incoming_webhook", incoming_webhook, name="incoming_webhook"),
 ]
