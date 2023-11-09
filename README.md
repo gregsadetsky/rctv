@@ -39,6 +39,10 @@ cd sdk
 bun watch
 ```
 
+## raspi things
+
+- [raspberry pi files repo is here](https://github.com/gregsadetsky/rctv-raspi).
+
 ## deployment
 
 https://rctv.recurse.com
