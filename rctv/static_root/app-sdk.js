@@ -20,11 +20,11 @@ var isSDKAuthenticated = async () => {
     return true;
   }
 };
-var getHubVisitsForToday = async () => {
+var apiFetcherFunctionMaker = (endpoint) => async (args) => {
   if (!await isSDKAuthenticated()) {
     return;
   }
-  const res = await fetch("https://rctv-dev.recurse.com/api/hubVisitsForToday", {
+  const res = await fetch(`https://rctv-dev.recurse.com/api/${endpoint}${args ? `?${new URLSearchParams(args)}` : ""}`, {
     credentials: "include"
   });
   const data = await res.json();
@@ -38,5 +38,6 @@ var onLoad = (clientOnLoadCallback) => {
 };
 window.RC = {
   onLoad,
-  getHubVisitsForToday
+  getHubVisitsForToday: apiFetcherFunctionMaker("hubVisitsForToday"),
+  getEvents: apiFetcherFunctionMaker("events")
 };

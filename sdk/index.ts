@@ -31,20 +31,25 @@ const isSDKAuthenticated = async () => {
   }
 };
 
-const getHubVisitsForToday = async () => {
-  if (!(await isSDKAuthenticated())) {
-    return;
-  }
-
-  const res = await fetch(
-    `${process.env.API_SERVER_URL}/api/hubVisitsForToday`,
-    {
-      credentials: "include",
+// generic (api calling function)-maker
+const apiFetcherFunctionMaker =
+  (endpoint: string) => async (args: Record<string, any>) => {
+    if (!(await isSDKAuthenticated())) {
+      return;
     }
-  );
-  const data = await res.json();
-  return data;
-};
+
+    const res = await fetch(
+      `${process.env.API_SERVER_URL}/api/${endpoint}${
+        // optionally pass given args as get args
+        args ? `?${new URLSearchParams(args)}` : ""
+      }`,
+      {
+        credentials: "include",
+      }
+    );
+    const data = await res.json();
+    return data;
+  };
 
 // Calls the developer provided function when ready
 const onLoad = (clientOnLoadCallback: () => void) => {
@@ -65,5 +70,6 @@ const onLoad = (clientOnLoadCallback: () => void) => {
 // TODO catch/bubble up errors...??
 window.RC = {
   onLoad,
-  getHubVisitsForToday,
+  getHubVisitsForToday: apiFetcherFunctionMaker("hubVisitsForToday"),
+  getEvents: apiFetcherFunctionMaker("events"),
 };

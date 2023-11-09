@@ -135,6 +135,13 @@ window.RC.onLoad(() => {
     window.RC.getHubVisitsForToday().then((data) => {
         console.log('getHubVisitsForToday', data);
     });
+
+    window.RC.getEvents({
+        start: '20231108',
+        end: '20231115'
+    }).then((data) => {
+        console.log('getEvents', data);
+    });
 });</pre>
             - explore the API! <code style='background:#eee'>console.log(window.RC)</code> :-)<br/>
             - host your site/page somewhere as your app will need a public url. github pages should work for most pages/apps<br/>
