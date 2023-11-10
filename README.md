@@ -29,14 +29,28 @@ source venv/bin/activate
 python manage.py runserver
 ```
 
-## how to dev (sdk/js) - short version
+## how to dev (sdk / frontend app javascript) - short version
 
-- make sure that bun is installed, see sdk/README.md for more details
+1. make sure that bun is installed, see sdk/README.md for more details
 
 from repo dir:
 ```bash
 cd sdk
 bun watch
+```
+
+2. you will also need to run the vite bundler in parallel for app.html frontend scripts
+
+first time:
+```bash
+cd core/static_src
+npm install
+```
+
+then every time - from repo dir:
+```bash
+cd core/static_src
+npm run dev
 ```
 
 ## raspi things
