@@ -2,6 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from ..models import App
 from ..utils.views_tv_token import view_or_expect_tv_token
 
 
