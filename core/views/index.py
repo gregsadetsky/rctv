@@ -2,7 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
-from ..models import App, ZulipImgRequest
+from ..models import App, IncomingZulipMessage
 from ..utils.views_auth import user_authentication_required
 from ..utils.views_tv_token import view_or_expect_tv_token
 
@@ -15,7 +15,6 @@ def index(request):
 # tv view, require basic auth (which maps to django users)
 @view_or_expect_tv_token
 def app(request, app_index):
-    print("settings.DJANGO_VITE_DEV_MODE", settings.DJANGO_VITE_DEV_MODE)
     all_apps = App.objects.filter(enabled=True)
 
     if len(all_apps) == 0:
@@ -40,14 +39,17 @@ def app(request, app_index):
 
 
 @user_authentication_required
-def get_next_zulip_image_to_show(request):
-    oldest_not_processed_image = (
-        ZulipImgRequest.objects.filter(processed=False).order_by("created_at").first()
-    )
-    if oldest_not_processed_image is None:
-        return JsonResponse({"img_url": None})
+def get_unprocessed_zulip_messages(request):
+    unprocessed_zulip_messages = IncomingZulipMessage.objects.filter(
+        processed=False
+    ).order_by("created_at")
 
-    oldest_not_processed_image.processed = True
-    oldest_not_processed_image.save()
+    # make a copy of the payloads, otherwise the .filter and
+    # the .update below will ""clash"" and
+    # unprocessed_zulip_messages will end up containing an empty list...!!
+    payloads = [m.payload for m in unprocessed_zulip_messages]
 
-    return JsonResponse({"img_url": oldest_not_processed_image.img_url})
+    # mark them all as processed
+    unprocessed_zulip_messages.update(processed=True)
+
+    return JsonResponse({"unprocessed_zulip_messages": list(payloads)})

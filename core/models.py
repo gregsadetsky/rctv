@@ -26,7 +26,7 @@ class App(models.Model):
         return f"{self.url}"
 
 
-class ZulipImgRequest(models.Model):
+class IncomingZulipMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    img_url = models.URLField(max_length=1000)
     processed = models.BooleanField(default=False)
+    payload = models.JSONField()
