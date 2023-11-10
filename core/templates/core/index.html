@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
@@ -26,21 +27,14 @@
   <div id='maincontent'>
     <h1>RCTV</h1>
 
-    <h2>what is this??</h2>
+    <p style='font-size:1.3rem'>A TV dashboard/platform/ecosystem located at the <a href="https://recurse.com/">Recurse Center</a> with "TV Apps" to try to bring everyone (remote and non-remote participants) together in wholesome ways.</p>
 
-    <p>an IRL tv dashboard at the <a href="https://recurse.com/">Recurse Center</a> with "tv apps" to bridge the
-      physical-virtual schism</p>
+    <p style='margin-top:10px;margin-bottom:20px;font-size:1.2rem; background:#cff'>If you're part of the Recurse community, <a href="{% url 'developers' %}">please click here</a>!!</p>
 
-    <p style='font-size:0.9rem'><i><b>~TODO include an image of the thing~</b></i></p>
-
-    <h3>is there more to this/life??</h3>
-
-    <p style='margin-top:10px;margin-bottom:20px;font-size:1.2rem; background:#cff'>yes! if you're part of the Recurse community, <a href="{% url 'developers' %}">please go here</a>!!</p>
-
-    <hr />
-
-    <p><a href="https://github.com/gregsadetsky/rctv">See the source code</a>. Code by <a
+    <p><a href="https://github.com/gregsadetsky/rctv">See the source code</a>. A project by <a
         href="https://jry.io/">Jacob Young</a> and <a href="https://greg.technology/">Greg Sadetsky</a>.</p>
+
+    <img src="{% static 'core/rctv.jpg' %}" alt="rctv" style="width:100%;max-width:600px;">
   </div>
 
 </body>
