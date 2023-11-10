@@ -16,7 +16,7 @@ export default function (message: string) {
   `;
   document.body.appendChild(chyron);
 
-  // setTimeout(() => {
-  //   document.body.removeChild(chyron);
-  // }, 5000);
+  setTimeout(() => {
+    document.body.removeChild(chyron);
+  }, 10000);
 }

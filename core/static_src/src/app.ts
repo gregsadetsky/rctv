@@ -18,9 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const { unprocessed_zulip_messages } = await res.json();
     unprocessed_zulip_messages.forEach((message: any) => {
       const { content } = message.message;
-      const res = content.match(/^\/(\w+) (.*)$/);
+      // match:
+      // - @rctv /img someurl
+      // - /img someurl
+      console.log("content", content);
+      const res = content.match(/^(@\*\*[^\*]+\*\* |)\/(\w+) (.*)$/);
+      console.log("res", res);
       if (res) {
-        const [_, slashCommand, slashCommandArgs] = res;
+        const [_, __, slashCommand, slashCommandArgs] = res;
         const slashCommandFn = SLASH_COMMAND_MAPPING[slashCommand];
         if (slashCommandFn) {
           slashCommandFn.default(slashCommandArgs);
