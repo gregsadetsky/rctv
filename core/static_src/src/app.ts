@@ -1,12 +1,12 @@
 import "vite/modulepreload-polyfill";
 import * as img from "./slash-commands/img";
 import * as appIndex from "./slash-commands/appIndex";
-import * as chyron from "./slash-commands/chyron";
+import * as ticker from "./slash-commands/ticker";
 
 const SLASH_COMMAND_MAPPING: Record<string, any> = {
   img,
   appIndex,
-  chyron,
+  ticker,
 };
 
 document.addEventListener("DOMContentLoaded", function () {

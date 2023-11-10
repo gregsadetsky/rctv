@@ -1,4 +1,4 @@
-import "../css/slash-chyron.css";
+import "../css/slash-ticker.css";
 
 export default function (message: string) {
   /*
@@ -9,14 +9,14 @@ export default function (message: string) {
   // add chryon html temporarily to body with message,
   // and make it disappear after 5 seconds
 
-  const chyron = document.createElement("div");
-  chyron.id = "scroll-container";
-  chyron.innerHTML = `
+  const ticker = document.createElement("div");
+  ticker.id = "scroll-container";
+  ticker.innerHTML = `
     <div id="scroll-text">${message}<div>
   `;
-  document.body.appendChild(chyron);
+  document.body.appendChild(ticker);
 
   setTimeout(() => {
-    document.body.removeChild(chyron);
+    document.body.removeChild(ticker);
   }, 10000);
 }
