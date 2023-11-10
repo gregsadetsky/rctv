@@ -184,6 +184,15 @@ window.RC.onLoad(() => {
     }).then((data) => {
         console.log('getEvents', data);
     });
+
+    window.RC.getZulipStreamMessages({
+        // only allowed streams right now are "RCTV", "blogging", "random", "cute"
+        stream: "blogging",
+        // optional - pass a sender email to filter by sender
+        sender: "blaggregator-bot@students.hackerschool.com",
+    }).then(({ messages: { messages } }) => {
+        // ... do stuff with messages
+    });
 });</pre>
             - explore the API! <code style='background:#eee'>console.log(window.RC)</code> :-)<br/>
             - <b>ALSO YOU CAN STORE STATE</b> &gt;&gt;&gt; use localStorage within your frontend app!! your app's data will persist and next time your app is shown on the tv, it can read localStorage and "revert" to whatever state you stored!! (thank you <a href="https://github.com/Qwuke">@Qwuke</a> for the idea!!!!)<br/>
