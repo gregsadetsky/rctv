@@ -72,4 +72,5 @@ window.RC = {
   onLoad,
   getHubVisitsForToday: apiFetcherFunctionMaker("hubVisitsForToday"),
   getEvents: apiFetcherFunctionMaker("events"),
+  getZulipStreamMessages: apiFetcherFunctionMaker("zulipStreamMessages"),
 };

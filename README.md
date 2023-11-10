@@ -53,6 +53,11 @@ cd core/static_src
 npm run dev
 ```
 
+3. we're not done...
+
+- you'll want to run `ngrok` and go [through these steps](docs/HOWTODEV-OAUTH).md so that rctv-dev.recurse.com works & points to your local django localhost:8000
+- we might have even more terminals/servers to run simultaneously (when we introduce websockets??), stay tuned.........
+
 ## raspi things
 
 - [raspberry pi files repo is here](https://github.com/gregsadetsky/rctv-raspi).

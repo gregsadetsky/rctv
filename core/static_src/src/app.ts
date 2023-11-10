@@ -21,9 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // match:
       // - @rctv /img someurl
       // - /img someurl
-      console.log("content", content);
       const res = content.match(/^(@\*\*[^\*]+\*\* |)\/(\w+) (.*)$/);
-      console.log("res", res);
       if (res) {
         const [_, __, slashCommand, slashCommandArgs] = res;
         const slashCommandFn = SLASH_COMMAND_MAPPING[slashCommand];

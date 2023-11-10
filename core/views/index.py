@@ -1,9 +1,7 @@
 from django.conf import settings
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import render
 
-from ..models import App, IncomingZulipMessage
-from ..utils.views_auth import user_authentication_required
 from ..utils.views_tv_token import view_or_expect_tv_token
 
 
@@ -36,20 +34,3 @@ def app(request, app_index):
             "meta_refresh_seconds": settings.APP_META_REFRESH_SECONDS,
         },
     )
-
-
-@user_authentication_required
-def get_unprocessed_zulip_messages(request):
-    unprocessed_zulip_messages = IncomingZulipMessage.objects.filter(
-        processed=False
-    ).order_by("created_at")
-
-    # make a copy of the payloads, otherwise the .filter and
-    # the .update below will ""clash"" and
-    # unprocessed_zulip_messages will end up containing an empty list...!!
-    payloads = [m.payload for m in unprocessed_zulip_messages]
-
-    # mark them all as processed
-    unprocessed_zulip_messages.update(processed=True)
-
-    return JsonResponse({"unprocessed_zulip_messages": list(payloads)})
