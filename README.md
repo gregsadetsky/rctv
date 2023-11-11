@@ -7,13 +7,18 @@ an IRL tv dashboard at the [Recurse Center](https://recurse.com/) with "tv apps"
 ## how to dev (backend)
 
 - you need a local postgres db
-- copy .env.example to .env and fill it out
 
 first time:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
+
+define an `.env` file. Copy from `.env.example` and fill in the values inside `""` quotes:
+
+```bash
+cp .env.example .env
 ```
 
 also! create a django super user for yourself!
