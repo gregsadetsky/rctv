@@ -42,11 +42,11 @@ cp .env.example .env
 
 [create a Zulip
 Bot](https://zulip.com/api/deploying-bots#running-a-bot-using-the-zulip-botserver)
-(choose Outgoing Webhook Bot), [download its `.zuliprc` file](https://zulip.com/api/api-keys), 
+(choose Outgoing Webhook Bot), [download its `zuliprc` file](https://zulip.com/api/api-keys), 
 and place it in root of this repository
 
 ```bash
-cp ~/Downloads/.zuliprc .
+cp ~/Downloads/zuliprc .
 ```
 
 also! create a django super user for yourself!
