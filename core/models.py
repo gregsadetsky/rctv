@@ -18,6 +18,7 @@ class App(models.Model):
     url = models.URLField(max_length=1000)
     enabled = models.BooleanField(default=True)
     uses_api = models.BooleanField(default=False)
+    on_screen_duration_seconds = models.IntegerField(default=60)
 
     class Meta:
         ordering = ["created_at"]

@@ -29,7 +29,13 @@ def developers(request):
             request, settings.RC_OAUTH_REDIRECT_URI
         )
 
-    all_apps = App.objects.all()
+    all_apps = list(App.objects.all())
+
+    app_index = 0
+    for app in all_apps:
+        if app.enabled:
+            app.app_index = app_index
+            app_index += 1
 
     return render(request, "core/developers.html", {"all_apps": all_apps})
 

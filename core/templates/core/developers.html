@@ -41,10 +41,11 @@
 
     ul.no-bullets {
         list-style-type: none;
+        padding-inline-start: 0;
     }
 
     ul li {
-        margin-bottom: 10px;
+        margin-bottom: 6px;
     }
 
     /* https://stackoverflow.com/a/1368286 */
@@ -98,36 +99,47 @@
 <body>
     <div id='maincontent'>
         <h1>RCTV DEVELOPERS</h1>
-        <h2>All RCTV Apps</h2>
+        <h2>List of Apps</h2>
         <ul class='no-bullets'>
             {% for app in all_apps %}
             <li>
                 <span style="user-select: none;">{% if app.enabled %}🟢{% else %}🔴{% endif %}
                 &nbsp;</span>
-                    <b>
-                        {% if app.uses_api %}
-                            {{ app.url }}
+                <b>
+                    {% if app.uses_api %}
+                        {{ app.url }}
+                    {% else %}
+                        {% if "recurse.rctogether.com" in app.url %}
+                            (hidden rctogether url)
                         {% else %}
-                            <a href="{{ app.url }}" target="_blank">{{ app.url }}</a>
+                            <a href="{{ app.url }}" target="_blank">
+                                {{ app.url|truncatechars:30 }}
+                            </a>
                         {% endif %}
-                    </b><br />
+                    {% endif %}
+                </b>
+                •
                 <small>
-                    <form method='post' action='/developers/edit_app'>
+                    <form method='post' action='/developers/edit_app' style='display:inline'>
                         {% csrf_token %}
                         <input type='hidden' name='app_id' value='{{ app.id }}' />
                         {% if app.enabled %}
-                        Enabled - <button class="kindOfLikeALink" type="submit" name="action" value="disable">Disable?</button>
+                            <button class="kindOfLikeALink" type="submit" name="action" value="disable">Disable?</button>
                         {% else %}
-                        Disabled - <button class="kindOfLikeALink" type="submit" name="action" value="enable">Enable?</button>
+                            <button class="kindOfLikeALink" type="submit" name="action" value="enable">Enable?</button>
                         {% endif %}
-                        •
+                        •                        
+                        <button class="kindOfLikeALink" type="submit" name="action" value="delete" style="color:red">Delete?</button>
+
                         {% if app.uses_api %}
-                        Uses API
-                        {% else %}
-                        Doesn't use API
+                            •
+                            Uses API
                         {% endif %}
-                        •
-                        <button class="kindOfLikeALink" type="submit" name="action" value="delete">Delete?</button>
+
+                        {% if app.enabled %}
+                            • app index <b>{{ app.app_index }}</b>
+                        {% endif %}
+
                     </form>
                 </small>
             </li>
@@ -138,17 +150,17 @@
         <hr>
         <h2 class='wacky'>Wacky Zulip things!!</h2>
         <p>
-            You can get on Zulip and ask the bot to show an image <b>right now</b>. It will comply immediately!!!
+            You can get on Zulip and ask the RCTV bot to do stuff <b>right now</b>!!!
         </p>
         <p>
             <b>@rctv /img SOMEURL</b> or just <b>/img SOMEURL</b> if you're DM'ing the bot!<br/>
-            <b>@rctv /appIndex SOMENUMBER</b> to change the app index (from 0 to whatever)<br/>
+            <b>@rctv /appIndex SOMENUMBER</b> to change the app index (from 0 to whatever -- see above)<br/>
             <b>@rctv /ticker SOMETEXT</b> shows a message at the bottom of the screen!!!!!!!!<br/>
         </p>
         <hr>
         <hr>
         <hr>
-        <h2>Add a new app!! It can be just a webpage! Any page!</h2>
+        <h2>Add a new app!! Apps are just web pages!!</h2>
         <p>
             <form method='post' action='/developers/add_app'>
                 {% csrf_token %}
@@ -156,12 +168,13 @@
                 <input type="checkbox" name="uses_api" value="on">Uses API?<sup>*</sup><br>
                 <button type='submit'>Add This New App!!</button><br/><br/>
                 *do you load the SDK and do stuff with RC data? if yes, click the "Uses API?" checkbox.<br/>
-                otherwise, if you're loading some external site that has no idea about RC/RC data (like a GIF url? example.com? hacker news?), leave the checkbox unchecked.<br/>
+                otherwise, if you're loading some external site that has no idea about RC/RC data (like a GIF url? example.com?), leave the checkbox unchecked.<br/>
             </form>
         </p>
-        <h2>How do you develop an app??</h2>
+        <hr>
+        <h2>How do you develop an app using the api??</h2>
         <p>
-            - make a web page or site. you can make a simple single-html-file app, you can include some javascript,
+            - make a web page or a site. you can make a simple single-html-file app, you can include some javascript,
             or you can make a whole site with a backend. dealer's choice.<br/>
             - include on your page:<br/>
             <pre style='background:#eee;width:100%;text-align:center;display:block;padding-top:7px;padding-bottom:7px;'>&#x3C;script src=&#x22;https://rctv.recurse.com/app-sdk.js&#x22;&#x3E;&#x3C;/script&#x3E;</pre>
@@ -186,7 +199,8 @@ window.RC.onLoad(() => {
     });
 
     window.RC.getZulipStreamMessages({
-        // only allowed streams right now are "RCTV", "blogging", "random", "cute"
+        // only allowed streams right now are:
+        // "RCTV", "blogging", "random", "cute"
         stream: "blogging",
         // optional - pass a sender email to filter by sender
         sender: "blaggregator-bot@students.hackerschool.com",
@@ -199,9 +213,14 @@ window.RC.onLoad(() => {
             - host your site/page somewhere as your app will need a public url. github pages should work for most pages/apps<br/>
             - ship early! ship often! you can add your app to RCTV above (see "Add a new app!!" -- don't forget to check "Uses API"!). do it. we dare you. we love you.
         </p>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
         <h2>More info please / contact</h2>
         <p style='padding-bottom:20px'>
-            The RCTV back/front-end code is <a href="https://github.com/gregsadetsky/rctv">here</a>. Contact <a href="https://github.com/jryio">Jacob Young</a> and <a href="https://github.com/gregsadetsky">Greg Sadetsky</a> for questions.
+            The RCTV front+back-end code is <a href="https://github.com/gregsadetsky/rctv">here</a>. Contact <a href="https://github.com/jryio">Jacob Young</a> and <a href="https://github.com/gregsadetsky">Greg Sadetsky</a> for questions.
         </p>
     </div>
 </body>

@@ -32,6 +32,5 @@ def app(request, app_index):
             "app_index": app_index,
             "next_app_index": (app_index + 1) % len(all_apps),
             "app": app_object,
-            "meta_refresh_seconds": settings.APP_META_REFRESH_SECONDS,
         },
     )
