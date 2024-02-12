@@ -7,13 +7,46 @@ an IRL tv dashboard at the [Recurse Center](https://recurse.com/) with "tv apps"
 ## how to dev (backend)
 
 - you need a local postgres db
-- copy .env.example to .env and fill it out
 
-first time:
+### first time:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
+
+create a new postgres database for rctv
+
+```bash
+# macOS (adapt for your OS)
+initdb -A trust /usr/local/var/postgres
+# Connect to default DB
+psql -U $USER -d -d postgres
+```
+
+```sql
+# Create a new postgres user for RCTV
+# SQL
+CREATE USER rctv;
+CREATE DATABASE rctv WITH OWNER="rctv";
+quit;
+
+# Connection string will be postgres://rctv@localhost:5432/rctv
+```
+
+define an `.env` file. Copy from `.env.example` and fill in the values inside `""` quotes:
+
+```bash
+cp .env.example .env
+```
+
+[create a Zulip
+Bot](https://zulip.com/api/deploying-bots#running-a-bot-using-the-zulip-botserver)
+(choose Outgoing Webhook Bot), [download its `zuliprc` file](https://zulip.com/api/api-keys), 
+and move it to the root of this repository + rename it to `.zuliprc` (with a dot at the beginning)
+
+```bash
+cp ~/Downloads/zuliprc .zuliprc
 ```
 
 also! create a django super user for yourself!
@@ -23,7 +56,7 @@ python manage.py createsuperuser
 # answer admin (username), a@a.ca, admin (password) and 'y' to confirm the bad password
 ```
 
-every time:
+### every time:
 ```bash
 source venv/bin/activate
 python manage.py runserver
