@@ -107,7 +107,7 @@
                 &nbsp;</span>
                 <b>
                     {% if app.uses_api %}
-                        {{ app.url }}
+                        {{ app.url|truncatechars:30 }}
                     {% else %}
                         {% if "recurse.rctogether.com" in app.url %}
                             (hidden rctogether url)
