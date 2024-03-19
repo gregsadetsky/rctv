@@ -110,7 +110,7 @@
                         {{ app.url|truncatechars:40 }}
                     {% else %}
                         {% if "recurse.rctogether.com" in app.url or "rcverse.recurse.com" in app.url %}
-                            (hidden rctogether url)
+                            (hidden url)
                         {% else %}
                             <a href="{{ app.url }}" target="_blank">
                                 {{ app.url|truncatechars:40 }}
