@@ -100,13 +100,15 @@
     <div id='maincontent'>
         <h1>RCTV DEVELOPERS</h1>
 
-        <h2>Add a new app!! Apps are just web pages!!</h2>
+        <br/>
+
+        <h2>Add a new web page that will be shown on RCTV!!!</h2>
         <p>
             <form method='post' action='/developers/add_app'>
                 {% csrf_token %}
                 <input type='url' required name='url' placeholder='https://...' style="width:300px" />
                 <input type="checkbox" name="uses_api" value="on">Uses API?<sup>*</sup><br>
-                <button type='submit'>Add This New App!!</button><br/><br/>
+                <button type='submit'>Add This New Web Page!!</button><br/><br/>
                 * you probably don't need this option! (no offense! I love you!)<br/>
                 if you load the SDK described below and do stuff with RC data (like getting posts from Zulip), then check this checkbox.<br/>
                 otherwise, if you just want to show a web site/page on RCTV, leave the checkbox unchecked!<br/>
