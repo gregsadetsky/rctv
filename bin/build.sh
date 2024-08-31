@@ -10,7 +10,7 @@ set -o errexit
 (cd core/static_src && npm install && npm run build)
 
 
-pip install --upgrade pippip install --force-reinstall -U setuptools
+# pip install --upgrade pippip install --force-reinstall -U setuptools
 pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
