@@ -8,6 +8,16 @@ admin.site.register(User, UserAdmin)
 
 class AppAdmin(admin.ModelAdmin):
     list_display = ("url", "created_at", "enabled")
+    actions = ["disable_apps"]
+
+    def disable_apps(self, request, queryset):
+        updated = queryset.update(enabled=False)
+        self.message_user(
+            request,
+            f"{updated} {'app was' if updated == 1 else 'apps were'} successfully disabled.",
+        )
+
+    disable_apps.short_description = "Disable selected apps"
 
 
 admin.site.register(App, AppAdmin)
