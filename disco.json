@@ -1,0 +1,15 @@
+{
+    "version": "1.0",
+    "services":
+    {
+        "web":
+        {
+            "port": 8000
+        },
+        "hook:deploy:start:before":
+        {
+            "type": "command",
+            "command": "python manage.py migrate"
+        }
+    }
+}
