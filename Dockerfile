@@ -6,18 +6,20 @@ WORKDIR /code
 COPY ./requirements.txt /code/requirements.txt
 RUN pip install -r requirements.txt
 
+COPY . /code
 COPY ./sdk/package.json /code/sdk/package.json
 COPY ./sdk/package-lock.json /code/sdk/package-lock.json
 COPY ./sdk/bun.lockb /code/sdk/bun.lockb
 WORKDIR /code/sdk
-RUN (npm install -g bun && bun install && bun bundle)
+RUN npm install -g bun
+RUN bun install
+RUN bun bundle
 
 WORKDIR /code
 # building the vite project implies more files - package lock,
 # tsconfig (which we're not using, but could),
 # the main typescript and all related typescript code.... so just include everything
 # at this point
-COPY . /code
 RUN (cd /code/core/static_src && npm install && npm run build)
 
 # build the django static files, passing the env vars to the command
