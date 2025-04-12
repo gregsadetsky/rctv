@@ -5,10 +5,8 @@ from django.conf import settings
 
 APPROVED_STREAMS = ["RCTV", "blogging", "random", "cute"]
 
-ZULIP_RC = settings.BASE_DIR.parent / ".zuliprc"
-assert ZULIP_RC.exists()
-
-client = zulip.Client(config_file=ZULIP_RC)
+# config values will be fetched from the ZULIP_* environment variables
+client = zulip.Client()
 
 
 # zulip api at large:

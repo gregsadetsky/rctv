@@ -170,9 +170,6 @@ AUTH_USER_MODEL = "core.User"
 RC_ACCESS_TOKEN = os.environ["RC_ACCESS_TOKEN"]
 RC_CALENDAR_URL = os.environ["RC_CALENDAR_URL"]
 
-ZULIP_RC_PATH = BASE_DIR / ".." / ".zuliprc"
-assert ZULIP_RC_PATH.exists(), "Zulip RC file not found"
-
 RC_OAUTH_APP_ID = os.environ["RC_OAUTH_APP_ID"]
 RC_OAUTH_APP_SECRET = os.environ["RC_OAUTH_APP_SECRET"]
 RC_OAUTH_REDIRECT_URI = os.environ["RC_OAUTH_REDIRECT_URI"]
