@@ -1,5 +1,7 @@
 FROM nikolaik/python-nodejs:python3.12-nodejs22
 
+RUN apt-get install postgresql-client
+
 WORKDIR /code
 
 # docker will not re-pip install if requirements.txt doesn't change
