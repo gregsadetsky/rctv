@@ -9,7 +9,7 @@ RUN pip install -r requirements.txt
 COPY ./sdk/package.json /code/sdk/package.json
 COPY ./sdk/package-lock.json /code/sdk/package-lock.json
 COPY ./sdk/bun.lockb /code/sdk/bun.lockb
-RUN (cd sdk && npm install bun && bun install && bun bundle)
+RUN (cd sdk && npm install -g bun && bun install && bun bundle)
 
 # building the vite project implies more files - package lock,
 # tsconfig (which we're not using, but could),
