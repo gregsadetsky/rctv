@@ -4,14 +4,7 @@
     {
         "web":
         {
-            "port": 8000,
-            "volumes":
-            [
-                {
-                    "name": "pgimport",
-                    "destinationPath": "/pgimport"
-                }
-            ]
+            "port": 8000
         },
         "hook:deploy:start:before":
         {
