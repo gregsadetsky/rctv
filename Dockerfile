@@ -7,6 +7,7 @@ COPY ./requirements.txt /code/requirements.txt
 RUN pip install -r requirements.txt
 
 COPY ./sdk/package.json /code/sdk/package.json
+COPY ./sdk/package-lock.json /code/sdk/package-lock.json
 COPY ./sdk/bun.lockb /code/sdk/bun.lockb
 RUN (cd sdk && npm install bun && bun install && bun bundle)
 
