@@ -1,7 +1,7 @@
 FROM nikolaik/python-nodejs:python3.12-nodejs22
 
 RUN apt-get update -y
-RUN apt-get install -y postgresql-client-17  
+RUN apt install -y postgresql
 
 WORKDIR /code
 
