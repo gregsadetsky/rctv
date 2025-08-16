@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.http import HttpResponse, JSONResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 from ..models import App
@@ -46,4 +46,4 @@ def get_all_apps_for_tauri(request):
                 "url": app.url,
             }
         )
-    return JSONResponse({"apps": apps_data})
+    return JsonResponse({"apps": apps_data})
