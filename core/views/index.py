@@ -38,12 +38,13 @@ def app(request, app_index):
 @view_or_expect_tv_token
 def get_all_apps_for_tauri(request):
     # return all enabled apps as json
-    all_apps = App.objects.filter(enabled=True)
+    all_apps = App.objects.filter(enabled=True).order_by("created_at")
     apps_data = []
     for app in all_apps:
         apps_data.append(
             {
                 "url": app.url,
+                "on_screen_duration_seconds": app.on_screen_duration_seconds,
             }
         )
     return JsonResponse({"apps": apps_data})
