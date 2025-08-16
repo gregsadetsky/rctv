@@ -5,7 +5,7 @@ from core.views.api.hub_visits import hub_visits_for_today
 from core.views.api.user_is_authed import user_is_authed
 from core.views.api.zulip_stream_messages import zulip_stream_messages
 from core.views.developers.index import add_app, developers, edit_app
-from core.views.index import app, index
+from core.views.index import app, index, get_all_apps_for_tauri
 from core.views.internal_api.unprocessed_zulip_message import (
     get_unprocessed_zulip_messages,
 )
@@ -15,6 +15,7 @@ from core.views.zulip.incoming_webhook import incoming_webhook
 urlpatterns = [
     path("", index, name="index"),
     path("app/<int:app_index>", app, name="app"),
+    path("get_all_apps_for_tauri", get_all_apps_for_tauri, name="get_all_apps_for_tauri"),
     path("developers", developers, name="developers"),
     path("developers/edit_app", edit_app, name="edit_app"),
     path("developers/add_app", add_app, name="add_app"),

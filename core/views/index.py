@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JSONResponse
 from django.shortcuts import render
 
 from ..models import App
@@ -34,3 +34,16 @@ def app(request, app_index):
             "app": app_object,
         },
     )
+
+@view_or_expect_tv_token
+def get_all_apps_for_tauri(request):
+    # return all enabled apps as json
+    all_apps = App.objects.filter(enabled=True)
+    apps_data = []
+    for app in all_apps:
+        apps_data.append(
+            {
+                "url": app.url,
+            }
+        )
+    return JSONResponse({"apps": apps_data})
