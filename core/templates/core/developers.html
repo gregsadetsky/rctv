@@ -107,11 +107,11 @@
             <form method='post' action='/developers/add_app'>
                 {% csrf_token %}
                 <input type='url' required name='url' placeholder='https://...' style="width:300px" />
-                <input type="checkbox" name="uses_api" value="on">Uses API?<sup>*</sup><br>
+                <!--<input type="checkbox" name="uses_api" value="on">Uses API?<sup>*</sup><br>-->
                 <button type='submit'>Add This New Web Page!!</button><br/><br/>
-                * you probably don't need this option! (no offense! I love you!)<br/>
+                <!--* you probably don't need this option! (no offense! I love you!)<br/>
                 if you load the SDK described below and do stuff with RC data (like getting posts from Zulip), then check this checkbox.<br/>
-                otherwise, if you just want to show a web site/page on RCTV, leave the checkbox unchecked!<br/>
+                otherwise, if you just want to show a web site/page on RCTV, leave the checkbox unchecked!<br/>-->
             </form>
         </p>
         <hr>
@@ -164,6 +164,7 @@
         </ul>
         <hr>
         <hr>
+        <!--
         <hr>
         <h2 class='wacky'>Wacky Zulip things!!</h2>
         <p>
@@ -227,6 +228,7 @@ window.RC.onLoad(() => {
         <hr>
         <hr>
         <hr>
+        -->
         <hr>
         <hr>
         <h2>More info please / contact</h2>
