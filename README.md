@@ -93,7 +93,8 @@ npm run dev
 
 ## raspi things
 
-- [raspberry pi files repo is here](https://github.com/gregsadetsky/rctv-raspi).
+- the most up to date (as of August 2025) app that runs on the pi [is here](https://github.com/gregsadetsky/rctv-tauri)!!! rust baby!!!
+- previous [raspberry pi files repo is here](https://github.com/gregsadetsky/rctv-raspi).
 
 ## deployment
 
