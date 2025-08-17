@@ -100,7 +100,7 @@ npm run dev
 
 https://rctv.recurse.com
 
-- hosted on greg's render account
+- hosted on the recurse disco pi!
 - site is automatically deployed upon git pushing to this repo
 
 ### TODO/docs
