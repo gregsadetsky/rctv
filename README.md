@@ -20,8 +20,13 @@ create a new postgres database for rctv
 ```bash
 # macOS (adapt for your OS)
 initdb -A trust /usr/local/var/postgres
-# Connect to default DB
-psql -U $USER -d -d postgres
+
+# or with docker
+docker run --rm --name pg -ePOSTGRES_PASSWORD=a -d --network=host postgres
+
+# Then connect to default DB. One of these should work:
+psql -U postgres -d postgres
+psql -U postgres -d postgres -h localhost -p 5432
 ```
 
 ```sql
@@ -40,7 +45,7 @@ define an `.env` file. Copy from `.env.example` and fill in the values inside `"
 cp .env.example .env
 ```
 
-[create a Zulip
+(optional) [create a Zulip
 Bot](https://zulip.com/api/deploying-bots#running-a-bot-using-the-zulip-botserver)
 (choose Outgoing Webhook Bot), [download its `zuliprc` file](https://zulip.com/api/api-keys), 
 and move it to the root of this repository + rename it to `.zuliprc` (with a dot at the beginning)
@@ -49,9 +54,10 @@ and move it to the root of this repository + rename it to `.zuliprc` (with a dot
 cp ~/Downloads/zuliprc .zuliprc
 ```
 
-also! create a django super user for yourself!
+Initialize the database and create a django super user for yourself!
 
 ```bash
+python manage.py migrate
 python manage.py createsuperuser
 # answer admin (username), a@a.ca, admin (password) and 'y' to confirm the bad password
 ```
