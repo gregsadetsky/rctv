@@ -45,15 +45,6 @@ define an `.env` file. Copy from `.env.example` and fill in the values inside `"
 cp .env.example .env
 ```
 
-(optional) [create a Zulip
-Bot](https://zulip.com/api/deploying-bots#running-a-bot-using-the-zulip-botserver)
-(choose Outgoing Webhook Bot), [download its `zuliprc` file](https://zulip.com/api/api-keys), 
-and move it to the root of this repository + rename it to `.zuliprc` (with a dot at the beginning)
-
-```bash
-cp ~/Downloads/zuliprc .zuliprc
-```
-
 Initialize the database and create a django super user for yourself!
 
 ```bash
@@ -62,11 +53,19 @@ python manage.py createsuperuser
 # answer admin (username), a@a.ca, admin (password) and 'y' to confirm the bad password
 ```
 
+(optional) create the `tv` user to enable TV login token auth method.
+http://127.0.0.1:8000/admin/core/user/add/ (login as the superuser).
+Username: `tv`, Password: (generate something secure; it will never be used).
+This enables passing `?tv_login_token=<TV_LOGIN_TOKEN from .env>` to some APIs, e.g. `/get_all_apps_for_tauri`.
+
 ### every time:
+
 ```bash
 source venv/bin/activate
 python manage.py runserver
 ```
+
+Login as the superuser you created to bypass the oauth stack while developing locally: http://127.0.0.1:8000/admin/login/
 
 ## how to dev (sdk / frontend app javascript) - short version
 
