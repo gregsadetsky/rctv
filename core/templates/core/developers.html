@@ -96,7 +96,7 @@
         <ul class='no-bullets'>
             {% for app in all_apps %}
             <li>
-                <span style="user-select: none;">{% if app.enabled %}🟢{% else %}🔴{% endif %}
+                <span style="user-select: none;">{% if app.enabled %}🟢{% else %}⚫{% endif %}
                 &nbsp;</span>
                 <b>
                     {% if app.uses_api %}
