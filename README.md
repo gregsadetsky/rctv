@@ -67,35 +67,6 @@ python manage.py runserver
 
 Login as the superuser you created to bypass the oauth stack while developing locally: http://127.0.0.1:8000/admin/login/
 
-## how to dev (sdk / frontend app javascript) - short version
-
-1. make sure that bun is installed, see sdk/README.md for more details
-
-from repo dir:
-```bash
-cd sdk
-bun watch
-```
-
-2. you will also need to run the vite bundler in parallel for app.html frontend scripts
-
-first time:
-```bash
-cd core/static_src
-npm install
-```
-
-then every time - from repo dir:
-```bash
-cd core/static_src
-npm run dev
-```
-
-3. we're not done...
-
-- you'll want to run `ngrok` and go [through these steps](./docs/HOWTODEV-OAUTH.md) so that rctv-dev.recurse.com works & points to your local django localhost:8000
-- we might have even more terminals/servers to run simultaneously (when we introduce websockets??), stay tuned.........
-
 ## raspi things
 
 - the most up to date (as of August 2025) app that runs on the pi [is here](https://github.com/gregsadetsky/rctv-tauri)!!! rust baby!!!
