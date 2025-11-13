@@ -9,7 +9,7 @@ RUN pip install -r requirements.txt
 COPY . /code
 
 # build the django static files
-RUN python manage.py collectstatic --no-input
+RUN --mount=type=secret,id=.env env $(cat /run/secrets/.env | xargs) python manage.py collectstatic --no-input
 
 # launch it
 CMD ["bin/serve.sh"]
