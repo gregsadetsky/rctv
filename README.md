@@ -15,31 +15,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-create a new postgres database for rctv
-
-```bash
-# macOS (adapt for your OS)
-initdb -A trust /usr/local/var/postgres
-
-# or with docker
-docker run --rm --name pg -ePOSTGRES_PASSWORD=a -d --network=host postgres
-
-# Then connect to default DB. One of these should work:
-psql -U postgres -d postgres
-psql -U postgres -d postgres -h localhost -p 5432
-```
-
-```sql
-# Create a new postgres user for RCTV
-# SQL
-CREATE USER rctv;
-CREATE DATABASE rctv WITH OWNER="rctv";
-quit;
-
-# Connection string will be postgres://rctv@localhost:5432/rctv
-```
-
-define an `.env` file. Copy from `.env.example` and fill in the values inside `""` quotes:
+duplicate `.env.example` and name the copy `.env` and fill in the values inside `""` quotes:
 
 ```bash
 cp .env.example .env
@@ -84,3 +60,12 @@ https://rctv.recurse.com
 - see [TODO](./docs/TODO.md)
 - and [HOWTODEV-OAUTH](./docs/HOWTODEV-OAUTH.md)
 - while you're here, read a little bit about the development process for RCTV [here](./docs/Screen%20Shot%202023-11-10%20at%206.06.17%20PM.png).
+
+## THANKS
+
+- Jacob Young for creating this with Greg!
+- all of the RCTV app creators!!
+- the Recurse Center for making it happen!!! y'all are the real deal!!
+- Frank Chiarulli for his collab in bringing up the tauri client on the new pi!
+- Sharon Sung for her work in making the couches zoom integration perfect!
+- Josh Wolfe for being the wielder of a laser scalpel and perfectly getting rid of a metric ton of legacy code!
