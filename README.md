@@ -20,8 +20,13 @@ create a new postgres database for rctv
 ```bash
 # macOS (adapt for your OS)
 initdb -A trust /usr/local/var/postgres
-# Connect to default DB
-psql -U $USER -d -d postgres
+
+# or with docker
+docker run --rm --name pg -ePOSTGRES_PASSWORD=a -d --network=host postgres
+
+# Then connect to default DB. One of these should work:
+psql -U postgres -d postgres
+psql -U postgres -d postgres -h localhost -p 5432
 ```
 
 ```sql
@@ -40,56 +45,27 @@ define an `.env` file. Copy from `.env.example` and fill in the values inside `"
 cp .env.example .env
 ```
 
-[create a Zulip
-Bot](https://zulip.com/api/deploying-bots#running-a-bot-using-the-zulip-botserver)
-(choose Outgoing Webhook Bot), [download its `zuliprc` file](https://zulip.com/api/api-keys), 
-and move it to the root of this repository + rename it to `.zuliprc` (with a dot at the beginning)
+Initialize the database and create a django super user for yourself!
 
 ```bash
-cp ~/Downloads/zuliprc .zuliprc
-```
-
-also! create a django super user for yourself!
-
-```bash
+python manage.py migrate
 python manage.py createsuperuser
 # answer admin (username), a@a.ca, admin (password) and 'y' to confirm the bad password
 ```
 
+(optional) create the `tv` user to enable TV login token auth method.
+http://127.0.0.1:8000/admin/core/user/add/ (login as the superuser).
+Username: `tv`, Password: (generate something secure; it will never be used).
+This enables passing `?tv_login_token=<TV_LOGIN_TOKEN from .env>` to some APIs, e.g. `/get_all_apps_for_tauri`.
+
 ### every time:
+
 ```bash
 source venv/bin/activate
 python manage.py runserver
 ```
 
-## how to dev (sdk / frontend app javascript) - short version
-
-1. make sure that bun is installed, see sdk/README.md for more details
-
-from repo dir:
-```bash
-cd sdk
-bun watch
-```
-
-2. you will also need to run the vite bundler in parallel for app.html frontend scripts
-
-first time:
-```bash
-cd core/static_src
-npm install
-```
-
-then every time - from repo dir:
-```bash
-cd core/static_src
-npm run dev
-```
-
-3. we're not done...
-
-- you'll want to run `ngrok` and go [through these steps](./docs/HOWTODEV-OAUTH.md) so that rctv-dev.recurse.com works & points to your local django localhost:8000
-- we might have even more terminals/servers to run simultaneously (when we introduce websockets??), stay tuned.........
+Login as the superuser you created to bypass the oauth stack while developing locally: http://127.0.0.1:8000/admin/login/
 
 ## raspi things
 

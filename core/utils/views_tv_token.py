@@ -10,11 +10,7 @@ def view_or_expect_tv_token(view):
         else:
             tv_login_token = request.GET.get("tv_login_token")
 
-            if (
-                tv_login_token
-                and len(tv_login_token)
-                and tv_login_token == settings.TV_LOGIN_TOKEN
-            ):
+            if tv_login_token and tv_login_token == settings.TV_LOGIN_TOKEN:
                 # find 'tv' user and log them in
                 User = get_user_model()
                 user = User.objects.get(username="tv")

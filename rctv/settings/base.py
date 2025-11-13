@@ -167,15 +167,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/4.2/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 AUTH_USER_MODEL = "core.User"
 
-RC_ACCESS_TOKEN = os.environ["RC_ACCESS_TOKEN"]
-RC_CALENDAR_URL = os.environ["RC_CALENDAR_URL"]
-
 RC_OAUTH_APP_ID = os.environ["RC_OAUTH_APP_ID"]
 RC_OAUTH_APP_SECRET = os.environ["RC_OAUTH_APP_SECRET"]
 RC_OAUTH_REDIRECT_URI = os.environ["RC_OAUTH_REDIRECT_URI"]
-
-ZULIP_INCOMING_WEBHOOK_TOKEN = os.environ["ZULIP_INCOMING_WEBHOOK_TOKEN"]
-ZULIP_INCOMING_WEBHOOK_BOT_NAME = os.environ["ZULIP_INCOMING_WEBHOOK_BOT_NAME"]
 
 TV_LOGIN_TOKEN = os.environ["TV_LOGIN_TOKEN"]
 
