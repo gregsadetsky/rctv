@@ -8,7 +8,9 @@ RUN pip install -r requirements.txt
 
 COPY . /code
 
-# build the django static files
+# Build the django static files.
+# Note: the .env secret contains a few newline-separated NAME='value' overrides for deployment.
+# In dev, the .env secret is empty. (It has nothing to do with the .env file in the cwd, which is also used.)
 RUN --mount=type=secret,id=.env env $(cat /run/secrets/.env | xargs) python manage.py collectstatic --no-input
 
 # launch it

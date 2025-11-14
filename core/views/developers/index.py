@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
+from django_eventstream import send_event
 
 from ...utils.views_auth import user_authentication_required
 from ..oauth.utils import get_rc_oauth
@@ -85,4 +86,12 @@ def add_app(request):
     )
     app.save()
 
+    return redirect(reverse("developers"))
+
+@user_authentication_required
+@require_http_methods(["POST"])
+def show_immediately(request):
+    app_id = request.POST.get("app_id")
+    app = get_object_or_404(App, id=app_id)
+    send_event("events", "show_immediately", {"url": app.url})
     return redirect(reverse("developers"))
