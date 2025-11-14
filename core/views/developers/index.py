@@ -45,7 +45,7 @@ def developers(request):
 @require_http_methods(["POST"])
 def edit_app(request):
     action = request.POST.get("action")
-    assert action in ["enable", "disable", "delete"]
+    assert action in ["enable", "disable", "delete", "show_immediately"]
     app_id = request.POST.get("app_id")
     app = get_object_or_404(App, id=app_id)
 
@@ -57,6 +57,8 @@ def edit_app(request):
         app.save()
     elif action == "delete":
         app.delete()
+    elif action == "show_immediately":
+        send_event("events", "show_immediately", {"url": app.url})
     else:
         raise Exception("Invalid action")
 
@@ -86,12 +88,4 @@ def add_app(request):
     )
     app.save()
 
-    return redirect(reverse("developers"))
-
-@user_authentication_required
-@require_http_methods(["POST"])
-def show_immediately(request):
-    app_id = request.POST.get("app_id")
-    app = get_object_or_404(App, id=app_id)
-    send_event("events", "show_immediately", {"url": app.url})
     return redirect(reverse("developers"))
