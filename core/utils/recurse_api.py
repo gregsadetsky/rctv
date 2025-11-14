@@ -31,12 +31,5 @@ def _query(token, api_url, api_verb="GET", post_json={}):
     return r.json()
 
 
-def get_hub_visits_for_today(token):
-    # https://github.com/recursecenter/wiki/wiki/Recurse-Center-API#hub-visits
-    # from docs:
-    # "start_date (Date) - inclusive; defaults to today in America/New_York."
-    return _query(token, f"/hub_visits")
-
-
 def get_user_profile(token):
     return _query(token, f"/people/me")

@@ -91,7 +91,7 @@
             </form>
         </p>
         <hr>
-        
+
         <h2>List of Apps</h2>
         <ul class='no-bullets'>
             {% for app in all_apps %}
@@ -116,12 +116,14 @@
                     <form method='post' action='/developers/edit_app' style='display:inline'>
                         {% csrf_token %}
                         <input type='hidden' name='app_id' value='{{ app.id }}' />
+                        <button class="kindOfLikeALink" type="submit" name="action" value="show_immediately">Show</button>
+                        •
                         {% if app.enabled %}
                             <button class="kindOfLikeALink" type="submit" name="action" value="disable">Disable?</button>
                         {% else %}
                             <button class="kindOfLikeALink" type="submit" name="action" value="enable">Enable?</button>
                         {% endif %}
-                        •                        
+                        •
                         <button class="kindOfLikeALink" type="submit" name="action" value="delete" style="color:red">Delete?</button>
 
                         {% if app.uses_api %}

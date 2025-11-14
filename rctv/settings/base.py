@@ -117,6 +117,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# SSE Auth
+# https://github.com/fanout/django-eventstream?tab=readme-ov-file#authorization
+EVENTSTREAM_CHANNELMANAGER_CLASS = 'core.utils.events_auth.ChannelManager'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

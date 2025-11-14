@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
+from django_eventstream import send_event
 
 from ...utils.views_auth import user_authentication_required
 from ..oauth.utils import get_rc_oauth
@@ -44,7 +45,7 @@ def developers(request):
 @require_http_methods(["POST"])
 def edit_app(request):
     action = request.POST.get("action")
-    assert action in ["enable", "disable", "delete"]
+    assert action in ["enable", "disable", "delete", "show_immediately"]
     app_id = request.POST.get("app_id")
     app = get_object_or_404(App, id=app_id)
 
@@ -56,6 +57,8 @@ def edit_app(request):
         app.save()
     elif action == "delete":
         app.delete()
+    elif action == "show_immediately":
+        send_event("events", "show_immediately", {"url": app.url})
     else:
         raise Exception("Invalid action")
 
