@@ -38,7 +38,7 @@ This enables passing `?tv_login_token=<TV_LOGIN_TOKEN from .env>` to some APIs, 
 
 ```bash
 source venv/bin/activate
-./bin/dev.sh
+./bin/serve-dev.sh
 ```
 
 Login as the superuser you created to bypass the oauth stack while developing locally: http://127.0.0.1:8000/admin/login/
